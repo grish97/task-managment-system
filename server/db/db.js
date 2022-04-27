@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
-const uri = "mongodb://localhost:27017/dogsDB";
-console.log(process.env.TOKEN_SECRET);
+const uri = process.env.DB_CONNECT_URI;
 
 mongoose.connect(uri, {
     useNewUrlParser: true,
@@ -11,4 +10,4 @@ mongoose.connect(uri, {
 const conSuccess = mongoose.connection
 conSuccess.once('open', _ => {
   console.log('Database connected:', uri)
-})
+});

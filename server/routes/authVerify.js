@@ -1,6 +1,10 @@
 const jwt = require("jsonwebtoken");
 
-module.exports = function (req, res, next) {
+function generateAccessToken(id) {
+    return jwt.sign({ _id: id }, process.env.TOKEN_SECRET, { expiresIn: "1800s", });
+}
+
+function verifyJWT (req, res, next) {
     const token = req.header("auth-token");
 
     if (!token) {
@@ -8,10 +12,21 @@ module.exports = function (req, res, next) {
     }
 
     try {
-        const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-        req.user = verified;
-        next();
+        jwt.verify(token, process.env.TOKEN_SECRET, (error, decoded) => {
+            if (error) {
+                res.sendStatus(403);
+                return;
+            }
+
+            req.tokenData = decoded;
+            next();
+        });
     } catch(error) {
         res.status(400).send("Invalid Token");
     }
 }
+
+module.exports = {
+    verifyJWT,
+    generateAccessToken,
+};

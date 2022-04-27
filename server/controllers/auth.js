@@ -2,6 +2,7 @@ const bcript = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Joi = require("@hapi/joi");
 const User = require("../models/user.js");
+const { generateAccessToken } = require("../routes/authVerify");
 
 // validate user info
 const reqisterSchema = Joi.object({
@@ -60,11 +61,12 @@ async function login(req, res) {
         const { error } = await loginSchema.validateAsync(req.body);
 
         if (error) {
-            res.status().json({ success: false, error: error.details[0].message });
+            res.json({ success: false, error: error.details[0].message });
         } else {
-            const token = jwt.sign({ _id: user.id }, process.env.TOKEN_SECRET);
-            // res.status(200).json({ success: true });
-            res.header("auth-token", token).send(token);
+            const token = generateAccessToken(user.id);
+            res.json({
+                token: `Bearer ${token}`,
+            });
         }
     } catch (error) {
         res.status(400).json({ success: false, error });
@@ -74,4 +76,4 @@ async function login(req, res) {
 module.exports = {
     register,
     login,
-};
+};``
