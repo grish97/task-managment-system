@@ -1,6 +1,8 @@
+const { Console } = require("console");
 const mongoose = require("mongoose");
 
-const uri = "mongodb+srv://grish01:searchEngine@cluster0.ae1qx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = process.env.DB_CONNECT_URI;
+console.log(process.env.TOKEN_SECRET);
 
 mongoose.connect(uri, {
     useNewUrlParser: true,

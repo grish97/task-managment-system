@@ -1,13 +1,19 @@
 const bcript = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const Joi = require("@hapi/joi");
 const User = require("../models/user.js");
 
 // validate user info
-// const reqisterSchema = Joi.object({
-//     username: Joi.string().min(3).required(),
-//     email: Joi.string().min(6).required().email(),
-//     password: Joi.string().min(6).required(),
-// });
+const reqisterSchema = Joi.object({
+    username: Joi.string().min(3).required(),
+    email: Joi.string().min(6).required().email(),
+    password: Joi.string().min(6).required(),
+});
+
+const loginSchema = Joi.object({
+    email: Joi.string().min(6).required().email(),
+    password: Joi.string().min(6).required(),
+});
 
 async function register(req, res) {
     const isAlreadyExist = await User.findOne({ email: req.body.email });
@@ -17,8 +23,8 @@ async function register(req, res) {
         return;
     }
 
-    const salt = bcript.genSalt(10);
-    const hashedPassword = bcript.hash(req.body.password, salt);
+    const salt = await bcript.genSalt(10);
+    const hashedPassword = await bcript.hash(req.body.password, salt);
 
     const user = new User({
         username: req.body.username,
@@ -27,8 +33,7 @@ async function register(req, res) {
     });
 
     try {
-        // const { error } = reqisterSchema.validateAsync(req.body);
-        const error = false;
+        const { error } = reqisterSchema.validateAsync(req.body);
 
         if (error) {
             res.status(400).json(error.details[0].message);
@@ -42,6 +47,31 @@ async function register(req, res) {
     }
 }
 
+async function login(req, res) {
+    const user = await User.findOne({ email: req.body.email });
+    const validPassword = await bcript.compare(req.body.password, user.password);
+
+    if (!user || !validPassword) {
+        res.status(400).send("Email or password incorrect");
+        return;
+    }
+
+    try {
+        const { error } = await loginSchema.validateAsync(req.body);
+
+        if (error) {
+            res.status().json({ success: false, error: error.details[0].message });
+        } else {
+            const token = jwt.sign({ _id: user.id }, process.env.TOKEN_SECRET);
+            // res.status(200).json({ success: true });
+            res.header("auth-token").send(token);
+        }
+    } catch (error) {
+        res.status(400).json({ success: false, error });
+    }
+}
+
 module.exports = {
     register,
+    login,
 };
