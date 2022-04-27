@@ -64,7 +64,7 @@ async function login(req, res) {
         } else {
             const token = jwt.sign({ _id: user.id }, process.env.TOKEN_SECRET);
             // res.status(200).json({ success: true });
-            res.header("auth-token").send(token);
+            res.header("auth-token", token).send(token);
         }
     } catch (error) {
         res.status(400).json({ success: false, error });

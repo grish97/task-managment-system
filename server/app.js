@@ -4,6 +4,7 @@ const taskRoutes = require("./routes/task.js");
 const authRoutes = require("./routes/auth.js");
 const userRoutes = require("./routes/user.js");
 const dotenv = require("dotenv");
+
 require("./db/db.js");
 
 dotenv.config();
@@ -16,7 +17,7 @@ app.use(cors());
 
 app.use("/task", taskRoutes);
 
-app.use("/api/user", authRoutes);
+app.use("/api/auth", authRoutes);
 
 app.use("/user", userRoutes);
 
