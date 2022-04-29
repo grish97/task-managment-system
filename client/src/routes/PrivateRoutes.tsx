@@ -1,12 +1,18 @@
-import { ReactNode } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import Layout from 'application/components/Layout/Layout';
 
 interface IPropType {
   isAuthenticated: boolean;
 }
 
 function PrivateRoutes({ isAuthenticated }: IPropType) {
-  return isAuthenticated ? <Outlet /> : <Navigate to="/auth/login" />;
+  return isAuthenticated ? (
+    <Layout>
+      <Outlet />
+    </Layout>
+  ) : (
+    <Navigate to="/auth/login" />
+  );
 }
 
 export default PrivateRoutes;

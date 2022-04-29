@@ -1,5 +1,7 @@
+import Tasks from '../Tasks/Tasks';
+
 function Dashboard() {
-  return <div>Dashboard</div>;
+  return <Tasks />;
 }
 
 export default Dashboard;

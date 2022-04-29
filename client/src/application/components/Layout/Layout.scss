@@ -1,0 +1,27 @@
+.app-content {
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 7px;
+    // height: 70px;
+    background-color: #eee;
+
+    .navbar-content {
+      width: 70%;
+      display: flex;
+      justify-content: space-between;
+      margin: 0 auto;
+    }
+
+    .log-out {
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    width: 70%;
+    margin: 0 auto;
+    padding-top: 10px;
+  }
+}

@@ -1,0 +1,25 @@
+$primary_color: #00b4d8;
+
+.add-new-task {
+  display: flex;
+  justify-content: center;
+
+  .input-area input {
+    width: 400px;
+    height: 33px;
+    // border-radius: 5px 0 0 5px;
+    // border-color: #eee;
+    outline: none;
+    font-size: 22px;
+  }
+
+  .add-button button {
+    height: 39px;
+    margin-left: -1px;
+    background-color: $primary_color;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    color: white;
+    font-weight: bold;
+  }
+}
