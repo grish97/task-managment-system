@@ -19,11 +19,10 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use("/task", taskRoutes);
+app.use("/api/task", taskRoutes);
 
 app.use("/api/auth", authRoutes);
 
-app.use("/user", userRoutes);
+app.use("/api/user", userRoutes);
 
 app.listen(8000);
-

@@ -21,7 +21,6 @@ const NoFoundComponent = lazy(() => import('application/components/NotFound/NotF
 
 function Routing() {
   const authStore = useSelector((store: IRootStore) => store.auth);
-  console.log(authStore);
 
   return (
     <BrowserRouter>
