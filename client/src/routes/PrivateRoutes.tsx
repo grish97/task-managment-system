@@ -11,7 +11,7 @@ function PrivateRoutes({ isAuthenticated }: IPropType) {
       <Outlet />
     </Layout>
   ) : (
-    <Navigate to="/auth/login" />
+    <Navigate to="/auth/signin" />
   );
 }
 

@@ -27,7 +27,7 @@ function Routing() {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/auth" element={<PublicRoute isAuthenticated={authStore.isLogged} />}>
-            <Route path="/auth/login" element={<LoginPage />} />
+            <Route path="/auth/signin" element={<LoginPage />} />
           </Route>
 
           <Route path="/" element={<PrivateRoute isAuthenticated={authStore.isLogged} />}>

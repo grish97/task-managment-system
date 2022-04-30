@@ -116,7 +116,7 @@ class ValidationService {
       length: 'Field must be between :min and :max characters.',
       min: 'Field must be greater then :min',
       email: 'Email is not valid',
-      password: 'Invalid Password',
+      password: 'Password must include minimum 8 characters',
     };
     return errors[type];
   }

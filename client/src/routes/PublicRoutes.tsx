@@ -6,7 +6,6 @@ interface IPropType {
 }
 
 function PubliRoutes({ isAuthenticated }: IPropType) {
-  // return <Route {...rest} element={isAuthenticated ? <Navigate to="/" /> : children} />;
   return isAuthenticated ? <Navigate to="/dashboard" /> : <Outlet />;
 }
 

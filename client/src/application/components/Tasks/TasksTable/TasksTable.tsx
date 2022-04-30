@@ -1,3 +1,4 @@
+import { Button } from 'react-bootstrap';
 import './TasksTable.scss';
 
 import { ITask } from '@task';
@@ -11,6 +12,16 @@ interface IPropType {
 const columns: string[] = ['name', 'status', 'actions'];
 
 function TasksTable(props: IPropType) {
+  function updateStatus(task: ITask) {
+    if (task.status === 'done') {
+      return;
+    }
+
+    props.updateTask(task.id, {
+      status: 'done',
+    });
+  }
+
   return (
     <div className="tasks-table">
       <div className="tb-header">
@@ -25,17 +36,26 @@ function TasksTable(props: IPropType) {
 
       <div className="tb-body">
         {props.tasks.length ? (
-          props.tasks.map((task: ITask, key: number) => (
-            <div className="tb-row" key={key}>
+          props.tasks.map((task: ITask) => (
+            <div className="tb-row" key={task.id}>
               <div className={`tb-td name`}>{task.name}</div>
-              <div className={`tb-td status`}>{task.status}</div>
+              <div className={`tb-td status`}>{task.status.toUpperCase()}</div>
               <div className={`tb-td actions`}>
-                <button className="done" disabled={task.status === 'done'}>
+                <Button
+                  variant="success"
+                  className="done"
+                  disabled={task.status === 'done'}
+                  onClick={() => updateStatus(task)}
+                >
                   Done
-                </button>
-                <button className="remove" onClick={() => props.deleteTask(task.id)}>
+                </Button>
+                <Button
+                  variant="danger"
+                  className="remove"
+                  onClick={() => props.deleteTask(task.id)}
+                >
                   Remove
-                </button>
+                </Button>
               </div>
             </div>
           ))

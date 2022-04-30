@@ -31,23 +31,25 @@ async function read(req, res) {
 async function update(req, res) {
   try {
     const allowedProps = ["name", "description", "status"];
-    const selectedProps = Object.keys(req.params);
+    const selectedProps = Object.keys(req.body);
 
     // check is selected allowed props
     const availables = selectedProps.filter((el) => allowedProps.includes(el));
 
     if (!availables.length) {
-      res.status(400).json({ success: false, error: "Something went wrong" });
+      res
+        .status(400)
+        .json({ success: false, error: "No any field for update" });
     }
 
-    const task = await Task.findbyId({ _id: req.params.id });
+    const task = await Task.findById({ _id: req.params.id });
     selectedProps.forEach((prop) => (task[prop] = req.body[prop]));
 
     await task.save();
 
-    res.status(400).json(task);
+    res.status(200).json(task);
   } catch (error) {
-    res.status(200).json({ success: false, error });
+    res.status(400).json({ success: false, error: error.message });
   }
 }
 
@@ -55,8 +57,9 @@ async function remove(req, res) {
   try {
     const task = await Task.findOneAndDelete({ _id: req.params.id });
 
-    console.log(JSON.stringify({ task, id: req.params.id }, null, 2));
-    res.status(400).json("Task was deleted");
+    res.status(200).json({
+      success: true,
+    });
   } catch (error) {
     res.status(400).json({ success: false, error });
   }

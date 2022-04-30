@@ -4,7 +4,7 @@
   .tb-row {
     display: flex;
     align-items: center;
-    padding: 5px 3px;
+    padding: 10px;
 
     .name {
       width: 40%;
@@ -27,7 +27,7 @@
     text-transform: uppercase;
 
     .tb-row {
-      height: 34px;
+      height: 45px;
 
       .actions {
         text-align: right;
@@ -37,46 +37,16 @@
 
   .tb-body {
     .tb-row {
+      background-color: #eeeeee;
+      border-radius: 5px;
+      margin-top: 10px;
+
       .actions {
         display: flex;
         justify-content: flex-end;
 
-        button {
-          background: rgba(51, 51, 51, 0.05);
-          border-width: 0;
-          border-radius: 3px;
-          box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
-          box-sizing: border-box;
-          color: #333333;
-          cursor: pointer;
-          display: inline-block;
-          font-family: nunito, roboto, proxima-nova, 'proxima nova', sans-serif;
-          line-height: 16px;
-          min-height: 40px;
-          outline: 0;
-          padding: 8px 10px;
-          text-align: center;
-          text-rendering: geometricprecision;
-          text-transform: none;
-          user-select: none;
-          -webkit-user-select: none;
-          touch-action: manipulation;
-          vertical-align: middle;
-
-          button:hover,
-          button:active {
-            background-color: initial;
-            background-position: 0 0;
-            color: #ff4742;
-          }
-
-          button:active {
-            opacity: 0.5;
-          }
-
-          &:last-child {
-            margin-left: 10px;
-          }
+        button:first-child {
+          margin-right: 10px;
         }
       }
     }

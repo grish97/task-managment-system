@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { FormControl, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { updateAuth } from 'redux-store/reducers/authSlice';
 import style from './Login.module.scss';
@@ -69,22 +70,31 @@ function Login(props: IPropType) {
 
       <form onSubmit={onSubmit} className={style.loginForm}>
         <div className={style.formInput}>
-          <input type="text" value={email} onChange={onChangeEmail} placeholder="Enter E-mail" />
-          {emailError && <span className={style.errorMessage}>{emailError}</span>}
+          <FormControl
+            type="text"
+            value={email}
+            onChange={onChangeEmail}
+            placeholder="Enter E-mail"
+            isInvalid={emailError.length !== 0}
+          />
+          <FormControl.Feedback type={emailError ? 'invalid' : 'valid'}>
+            {emailError}
+          </FormControl.Feedback>
         </div>
 
         <div className={style.formInput}>
-          <input
+          <FormControl
             type="password"
             value={password}
             onChange={onChangePassword}
             placeholder="Enter Password"
+            isInvalid={passwordError.length !== 0}
           />
-          {passwordError && <span className={style.errorMessage}>{passwordError}</span>}
+          <FormControl.Feedback type={passwordError ? 'invalid' : 'valid'}>
+            {passwordError}
+          </FormControl.Feedback>
         </div>
-        <button type="submit" disabled={!isValidForm()}>
-          Sign In
-        </button>
+        <Button type="submit">Sign In</Button>
       </form>
     </div>
   );

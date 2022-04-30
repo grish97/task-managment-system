@@ -3,4 +3,11 @@ declare module '@services' {
     url: string;
     method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   }
+
+  interface IResponseResult {
+    response?: Response;
+    success: boolean;
+    redirect: boolean;
+    message: string;
+  }
 }

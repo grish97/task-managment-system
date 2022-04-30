@@ -2,6 +2,7 @@ import apiRoutes from 'configs/api-routes';
 import { http } from 'services';
 
 import { INewTask } from '@task';
+import { IResponseResult } from '@services';
 
 type TResponse = {
   success: boolean;
@@ -12,6 +13,7 @@ type TResponse = {
 type TFailResponse = {
   success: boolean;
   message: string;
+  redirect: boolean;
 };
 
 class TaskService {
@@ -20,13 +22,9 @@ class TaskService {
    * @returns {Promise<any>}
    */
   public static async getAll(): Promise<any> {
-    try {
-      const response = await http.get(apiRoutes.APP_TASK_GET_ALL);
+    const responseRes = await http.send(apiRoutes.APP_TASK_GET_ALL);
 
-      return this.responseResult(response);
-    } catch (error: any) {
-      return this.failResult(error.message);
-    }
+    return this.sendResult(responseRes);
   }
 
   /**
@@ -35,12 +33,9 @@ class TaskService {
    * @returns {Promise<any>}
    */
   public static async create(date: INewTask): Promise<any> {
-    try {
-      const response = await http.post(apiRoutes.APP_TASK_CREATE, date);
-      return this.responseResult(response);
-    } catch (error: any) {
-      return this.failResult(error.message);
-    }
+    const responseRes = await http.send(apiRoutes.APP_TASK_CREATE, date);
+
+    return this.sendResult(responseRes);
   }
 
   /**
@@ -50,16 +45,12 @@ class TaskService {
    * @returns {Promise<any>}
    */
   public static async update(id: string, date: Partial<INewTask>): Promise<any> {
-    try {
-      const options = apiRoutes.APP_TASK_UPDATE;
-      options.url = options.url.replace(':id', id);
+    const options = { ...apiRoutes.APP_TASK_UPDATE };
+    options.url = options.url.replace(':id', id);
 
-      const response = await http.put(options, date);
+    const responseRes = await http.send(options, date);
 
-      return this.responseResult(response);
-    } catch (error: any) {
-      return this.failResult(error.message);
-    }
+    return this.sendResult(responseRes);
   }
 
   /**
@@ -68,16 +59,24 @@ class TaskService {
    * @returns {Promise<any>}
    */
   public static async delete(id: string): Promise<any> {
-    try {
-      const options = apiRoutes.APP_TASK_DELETE;
-      options.url = options.url.replace(':id', id);
+    const options = { ...apiRoutes.APP_TASK_DELETE };
+    options.url = options.url.replace(':id', id);
 
-      const response = await http.delete(options);
+    const responseRes = await http.send(options);
 
-      return this.responseResult(response);
-    } catch (error: any) {
-      return this.failResult(error.message);
+    return this.sendResult(responseRes);
+  }
+
+  /**
+   * Send result depending on response result
+   * @param responseResult
+   */
+  private static sendResult(responseResult: IResponseResult) {
+    if (responseResult.success) {
+      return this.responseResult(responseResult.response as Response);
     }
+
+    return this.failResult(responseResult);
   }
 
   /**
@@ -103,10 +102,11 @@ class TaskService {
     return result;
   }
 
-  private static failResult(message: string): TFailResponse {
+  private static failResult(result: IResponseResult): TFailResponse {
     return {
       success: false,
-      message: message,
+      message: result.message,
+      redirect: result.redirect,
     };
   }
 }

@@ -21,7 +21,7 @@ function Layout(props: IPropType) {
     <div className="app-content">
       <div className="navbar">
         <div className="navbar-content">
-          <div className="brand">App</div>
+          <div className="brand">Task Managment System</div>
           <div className="log-out" onClick={onLogout}>
             Log Out
           </div>
