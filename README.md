@@ -10,7 +10,7 @@ Task Managment System project includes **authentication & authorization part and
 > ### server
 >> NodeJS Application
 
-## Used thecnologies
+## Used technologies
 
 > ### **Server side**
 

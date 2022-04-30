@@ -7,7 +7,11 @@
     padding: 10px;
 
     .name {
-      width: 40%;
+      width: 25%;
+    }
+
+    .description {
+      width: 30%;
     }
 
     .status {
@@ -15,14 +19,13 @@
     }
 
     .actions {
-      width: 40%;
+      width: 25%;
     }
   }
 
   .tb-header {
     background-color: #00b4d8;
     color: white;
-    font-weight: bold;
     border-radius: 5px;
     text-transform: uppercase;
 
@@ -40,6 +43,12 @@
       background-color: #eeeeee;
       border-radius: 5px;
       margin-top: 10px;
+
+      .name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
       .actions {
         display: flex;

@@ -9,7 +9,7 @@ interface IPropType {
   updateTask: (id: string, data: Partial<ITask>) => any;
 }
 
-const columns: string[] = ['name', 'status', 'actions'];
+const columns: string[] = ['name', 'description', 'status', 'actions'];
 
 function TasksTable(props: IPropType) {
   function updateStatus(task: ITask) {
@@ -39,6 +39,7 @@ function TasksTable(props: IPropType) {
           props.tasks.map((task: ITask) => (
             <div className="tb-row" key={task.id}>
               <div className={`tb-td name`}>{task.name}</div>
+              <div className={`tb-td description`}>{task.description}</div>
               <div className={`tb-td status`}>{task.status.toUpperCase()}</div>
               <div className={`tb-td actions`}>
                 <Button

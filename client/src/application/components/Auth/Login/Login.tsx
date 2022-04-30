@@ -66,36 +66,38 @@ function Login(props: IPropType) {
 
   return (
     <div className={style.loginContiner}>
-      <h3>Sign In</h3>
+      <div className={style.formArea}>
+        <h3>Sign In</h3>
 
-      <form onSubmit={onSubmit} className={style.loginForm}>
-        <div className={style.formInput}>
-          <FormControl
-            type="text"
-            value={email}
-            onChange={onChangeEmail}
-            placeholder="Enter E-mail"
-            isInvalid={emailError.length !== 0}
-          />
-          <FormControl.Feedback type={emailError ? 'invalid' : 'valid'}>
-            {emailError}
-          </FormControl.Feedback>
-        </div>
+        <form onSubmit={onSubmit} className={style.loginForm}>
+          <div className={style.formInput}>
+            <FormControl
+              type="text"
+              value={email}
+              onChange={onChangeEmail}
+              placeholder="Enter E-mail"
+              isInvalid={emailError.length !== 0}
+            />
+            <FormControl.Feedback type={emailError ? 'invalid' : 'valid'}>
+              {emailError}
+            </FormControl.Feedback>
+          </div>
 
-        <div className={style.formInput}>
-          <FormControl
-            type="password"
-            value={password}
-            onChange={onChangePassword}
-            placeholder="Enter Password"
-            isInvalid={passwordError.length !== 0}
-          />
-          <FormControl.Feedback type={passwordError ? 'invalid' : 'valid'}>
-            {passwordError}
-          </FormControl.Feedback>
-        </div>
-        <Button type="submit">Sign In</Button>
-      </form>
+          <div className={style.formInput}>
+            <FormControl
+              type="password"
+              value={password}
+              onChange={onChangePassword}
+              placeholder="Enter Password"
+              isInvalid={passwordError.length !== 0}
+            />
+            <FormControl.Feedback type={passwordError ? 'invalid' : 'valid'}>
+              {passwordError}
+            </FormControl.Feedback>
+          </div>
+          <Button type="submit">Sign In</Button>
+        </form>
+      </div>
     </div>
   );
 }

@@ -1,3 +1,5 @@
+$content_width: 80%;
+
 .app-content {
   .navbar {
     display: flex;
@@ -8,7 +10,7 @@
     background-color: #eee;
 
     .navbar-content {
-      width: 70%;
+      width: $content_width;
       display: flex;
       justify-content: space-between;
       margin: 0 auto;
@@ -20,7 +22,7 @@
   }
 
   .content {
-    width: 70%;
+    width: $content_width;
     margin: 0 auto;
     padding-top: 10px;
   }

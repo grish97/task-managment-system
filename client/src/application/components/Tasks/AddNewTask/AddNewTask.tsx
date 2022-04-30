@@ -71,10 +71,10 @@ function AddNewTask(props: IPropType) {
 
       {isAddNew && (
         <Modal onClose={toggleCrationPopup} title="Add New Task" className="new-task-popup">
-          <FloatingLabel label="Task Name" className="mb-3">
+          <FloatingLabel label="Enter Task Name" className="mb-3">
             <FormControl
               as="input"
-              placeholder="Leave a comment here"
+              placeholder="Task Name here"
               onChange={onChangeTaskName}
               value={taskName}
               isInvalid={Boolean(taskError.length)}
@@ -83,7 +83,7 @@ function AddNewTask(props: IPropType) {
               {taskError}
             </FormControl.Feedback>
           </FloatingLabel>
-          <FloatingLabel label="Description">
+          <FloatingLabel label="Enter Description">
             <FormControl
               as="textarea"
               placeholder="Task Description here"
