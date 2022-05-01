@@ -33,8 +33,14 @@ Task Managment System project includes **authentication & authorization part and
 
 ***Make this commands in the root directory of the project***
 
-> **Install dependencies:** ./install-modules.sh<br>
-> **Run project:** ./run.sh
+```bash
+# Install all dependencies (client and server)
+# copy environment files to .env
+./install-modules.sh
+
+# Run client and server at once
+./run.sh
+```
 
 ### Or using this commands in terminal bellow
 

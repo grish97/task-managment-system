@@ -3,7 +3,6 @@ const Task = require("../models/task.js");
 async function create(req, res) {
   try {
     const { name, description } = req.body;
-    console.log(req.body);
     const task = new Task({
       name,
       description,
