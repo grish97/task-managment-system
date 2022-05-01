@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import TaskActions from '../AddNewTask/TaskAction/TaskAction';
 import './TasksTable.scss';
 
-import { ITask } from '@task';
+import { INewTask, ITask } from '@task';
 
 interface IPropType {
   tasks: ITask[];
@@ -12,6 +14,8 @@ interface IPropType {
 const columns: string[] = ['name', 'description', 'status', 'actions'];
 
 function TasksTable(props: IPropType) {
+  const [updatedTask, setUpdatedTask] = useState<ITask | null>(null);
+
   function updateStatus(task: ITask) {
     if (task.status === 'done') {
       return;
@@ -20,6 +24,18 @@ function TasksTable(props: IPropType) {
     props.updateTask(task.id, {
       status: 'done',
     });
+  }
+
+  function toggleEditTask(task: ITask | null) {
+    setUpdatedTask(task);
+  }
+
+  function updateTask(task: Partial<INewTask>): void {
+    if (Object.keys(task).length) {
+      props.updateTask(updatedTask?.id as string, task);
+    }
+
+    toggleEditTask(null);
   }
 
   return (
@@ -57,6 +73,9 @@ function TasksTable(props: IPropType) {
                 >
                   Remove
                 </Button>
+                <Button variant="success" className="edit" onClick={() => toggleEditTask(task)}>
+                  Edit
+                </Button>
               </div>
             </div>
           ))
@@ -64,6 +83,18 @@ function TasksTable(props: IPropType) {
           <div className="no-data">You have not created any task</div>
         )}
       </div>
+
+      {updatedTask !== null && (
+        <TaskActions
+          mode="edit"
+          onClose={() => toggleEditTask(null)}
+          onConfirm={updateTask}
+          task={{
+            name: updatedTask.name,
+            description: updatedTask.description,
+          }}
+        />
+      )}
     </div>
   );
 }

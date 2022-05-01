@@ -40,9 +40,16 @@ async function update(req, res) {
       res
         .status(400)
         .json({ success: false, error: "No any field for update" });
+      return;
     }
 
     const task = await Task.findById({ _id: req.params.id });
+
+    if (!task) {
+      res.status(400).json({ success: false, error: "Task not found" });
+      return;
+    }
+
     selectedProps.forEach((prop) => (task[prop] = req.body[prop]));
 
     await task.save();

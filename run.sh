@@ -1,13 +1,8 @@
 #!/bin/bash
 
-# Run this script in root directory
+GREEN_TEXT_COLOR='\033[0;32m'
 
-# run server
-cd ./server
-nodemon app.js
-echo "Server Running"
+echo -e "${GREEN_TEXT_COLOR}Proccess form running TASK MANAGMENT SYSTEM"
 
-# Run client
-cd ../client
-npm start
-echo "Client Running"
+cd ./client
+npm run dev

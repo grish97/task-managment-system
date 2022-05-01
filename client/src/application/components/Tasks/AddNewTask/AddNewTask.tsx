@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { FormControl, FloatingLabel, Button } from 'react-bootstrap';
 import { Modal } from 'application/common';
 import { validator } from 'services';
+import TaskActions from './TaskAction/TaskAction';
 import './AddNewTask.scss';
 
 import { INewTask } from '@task';
@@ -12,55 +13,15 @@ interface IPropType {
 
 function AddNewTask(props: IPropType) {
   const [isAddNew, setIsAddNew] = useState(false);
-  const [taskName, setTaskName] = useState('');
-  const [description, setDescription] = useState('');
-  const [taskError, setTaskError] = useState('');
-  const [descriptionError, setDescriptionError] = useState('');
 
-  function createTask(): void {
-    if (!isValidForm()) {
-      return;
-    }
-
-    resetState();
-
-    props.onAddNew({
-      name: taskName,
-      description: description,
-    });
-  }
-
-  function isValidForm(): boolean {
-    return validator.validate(taskName, 3).isValid && validator.validate(description, 3).isValid;
+  function createTask(task: INewTask): void {
+    props.onAddNew(task);
+    toggleCrationPopup();
   }
 
   function toggleCrationPopup(): void {
     const nextValue = !isAddNew;
     setIsAddNew(nextValue);
-  }
-
-  function onChangeTaskName(event: ChangeEvent<HTMLInputElement>): void {
-    const value = event.target.value;
-    const { message } = validator.validate(value, 3);
-
-    setTaskName(value);
-    setTaskError(message);
-  }
-
-  function onChangeDescription(event: ChangeEvent<HTMLTextAreaElement>): void {
-    const value = event.target.value;
-    const { message } = validator.validate(value, 3);
-
-    setDescription(value);
-    setDescriptionError(message);
-  }
-
-  function resetState(): void {
-    setIsAddNew(false);
-    setTaskName('');
-    setDescription('');
-    setTaskError('');
-    setDescriptionError('');
   }
 
   return (
@@ -70,43 +31,11 @@ function AddNewTask(props: IPropType) {
       </div>
 
       {isAddNew && (
-        <Modal onClose={toggleCrationPopup} title="Add New Task" className="new-task-popup">
-          <FloatingLabel label="Enter Task Name" className="mb-3">
-            <FormControl
-              as="input"
-              placeholder="Task Name here"
-              onChange={onChangeTaskName}
-              value={taskName}
-              isInvalid={Boolean(taskError.length)}
-            />
-            <FormControl.Feedback type={taskError ? 'invalid' : 'valid'}>
-              {taskError}
-            </FormControl.Feedback>
-          </FloatingLabel>
-          <FloatingLabel label="Enter Description">
-            <FormControl
-              as="textarea"
-              placeholder="Task Description here"
-              style={{ height: '100px' }}
-              onChange={onChangeDescription}
-              value={description}
-              isInvalid={Boolean(descriptionError.length)}
-            />
-
-            <FormControl.Feedback type={descriptionError ? 'invalid' : 'valid'}>
-              {descriptionError}
-            </FormControl.Feedback>
-          </FloatingLabel>
-
-          <div className="buttons-group">
-            <Button variant="secondary" onClick={toggleCrationPopup}>
-              Cancel
-            </Button>
-            <Button variant="success" onClick={createTask}>
-              Create
-            </Button>
-          </div>
-        </Modal>
+        <TaskActions
+          mode="create"
+          onClose={toggleCrationPopup}
+          onConfirm={(task) => createTask(task as INewTask)}
+        />
       )}
     </div>
   );

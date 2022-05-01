@@ -27,9 +27,20 @@ Task Managment System project includes **authentication & authorization part and
 - React Bootstrap
 - SCSS
 
-## Run Client 
+## Automatically run project
 
-Make this commands from ***root directory*** of the project
+### You can authomaticaly install all dependencies and run project using bash script files
+
+***Make this commands in the root directory of the project***
+
+> **Install dependencies:** ./install-modules.sh<br>
+> **Run project:** ./run.sh
+
+### Or using this commands in terminal bellow
+
+## Run Client
+
+***Make this commands in the root directory of the project***
 
 ```bash
 # change directory to client
