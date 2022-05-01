@@ -1,6 +1,7 @@
 #!/bin/bash
 
 GREEN_TEXT_COLOR='\033[0;32m'
+NC='\033[0m' # No Color
 
 # Install client dependencies
 
@@ -14,7 +15,7 @@ npm install
 
 # end client instalation
 cd ../
-echo -e "${GREEN_TEXT_COLOR}Client dependencies Successfuly installed"
+echo -e "${GREEN_TEXT_COLOR}Client dependencies Successfuly installed${NC}"
 
 # Install server dependencies
 
@@ -28,6 +29,6 @@ npm install
 
 # end client instalation
 cd ../
-echo -e "${GREEN_TEXT_COLOR}Server dependencies Successfuly installed"
+echo -e "${GREEN_TEXT_COLOR}Server dependencies Successfuly installed${NC}"
 
 
